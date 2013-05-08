@@ -9,7 +9,7 @@ class JasmineSprocketsProxy
     end
 
     def sprockets_app
-      return @@jasmine_app unless defined?(::Sockets::Environment)
+      return @@jasmine_app unless defined?(::Sprockets::Environment)
       return @@sprockets_app if defined?(@@sprockets_app)
       @@sprockets_app ||= ::Sprockets::Environment.new.tap { |s| s.append_path(Jasmine.config.spec_dir) }
     end
