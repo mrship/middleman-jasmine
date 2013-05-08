@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Andy Shipman"]
   spec.email         = ["andy@cllearview.com"]
   spec.description   = %q{Jasmine testing framework support for Middleman}
-  spec.summary       = %q{Integrates Jasmine into a Middleman app rather than a separate process. Optional support for Sprockets.}
+  spec.summary       = %q{Integrates Jasmine into a Middleman app. Optional support for Sprockets.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
