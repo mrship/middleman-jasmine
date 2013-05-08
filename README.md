@@ -36,7 +36,7 @@ NOTE: If you want to include your application.js into the test suite, it is best
 src_files:
   - source/app/javascripts/application.js
 ```
-That is because the Sprockets instance that compiles the specs uses spec/javascripts as it's path to load the js. This causes issues with loading the application via a `//= require application` line.
+That is because the Sprockets instance that compiles the specs uses spec/javascripts as its path to load the js. This causes issues with loading the application via a `//= require application` line.
 
 
 ## Contributing
