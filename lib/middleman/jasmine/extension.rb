@@ -5,11 +5,11 @@ module Middleman
   module Jasmine
     class << self
       def registered(app, options_hash={}, &block)
-        options = OpenStruct.new(default_options.merge(options_hash))
+        @options = OpenStruct.new(default_options.merge(options_hash))
 
-        yield options if block_given?
+        yield @options if block_given?
 
-        app.map(options.jasmine_url) { run ::JasmineSprocketsProxy.new }
+        app.map(@options.jasmine_url) { run ::JasmineSprocketsProxy.new }
         jasmine_asset_folders.each do |item|
           app.map("/#{item}") { run ::JasmineSprocketsProxy.new(item) }
         end
@@ -18,12 +18,15 @@ module Middleman
       private
 
       def jasmine_asset_folders
-        %w(__jasmine__ __boot__ __spec__)
+        [
+          "__jasmine__", "__boot__", "__spec__", @options.fixtures_dir
+        ]
       end
 
       def default_options
         {
-          jasmine_url: "/jasmine"
+          jasmine_url: "/jasmine",
+          fixtures_dir: "spec/javascripts/fixtures"
         }        
       end      
     alias :included :registered
