@@ -39,7 +39,7 @@ class JasmineSprocketsProxy
   end
 
   def serving_spec_via_sprockets?
-    setup_for_spec_files? && !!@@sprockets_app
+    setup_for_spec_files? && defined?(@@sprockets_app)
   end
 end
 
