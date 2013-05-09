@@ -1,3 +1,10 @@
+0.1.0
+===
+
+* Configure in #after_configuration block
+* Apply all middleman_sprockets paths to our internal sprockets
+* Expose internal sprockets app with jasmine_sprockets helper
+
 0.0.3
 ===
 
