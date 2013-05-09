@@ -19,7 +19,8 @@ First run `bundle exec jasmine init` to setup Jasmine.
 
 Then, if you have sprockets installed through [middleman-sprockets](https://github.com/middleman/middleman-sprockets), you can create a spec.js file in spec/javascripts to include all your specs, i.e.
 ```
-  //= require_tree .
+//= require application
+//= require_tree .
 ```
 
 Add the following code to your `config.rb` file:
@@ -31,12 +32,16 @@ Write a spec file under spec/javascripts and hit /jasmine under your Middleman a
 
 You should see the results of the spec pass/fail under Jasmine. 
 
-If you want to include your application.js into the test suite, it is best to do that under jasmine.yml, i.e:
-```yaml
-src_files:
-  - app/javascripts/application.js
+If you add additional paths to sprockets with `append_path` in your `after_configuration` block then you'll most likely need to append the same paths to the Middleman::Jasmine sprockets instance. To do that use the helper `jasmine_sprockets`, i.e.:
+```ruby
+after_configuration do
+  handlebars_path = File.expand_path('../', ::Handlebars::Source.bundled_path)
+  sprockets.append_path(handlebars_path)
+
+  # add Handlebars to Jasmine too
+  jasmine_sprockets.append_path(handlebars_path)
+end
 ```
-That is because the Sprockets instance that compiles the specs uses spec/javascripts as its path to load the js. This causes issues with loading the application via a `//= require application` line.
 
 To configure the extension, use:
 ```
