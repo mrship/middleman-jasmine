@@ -3,21 +3,31 @@ require 'jasmine'
 class JasmineSprocketsProxy
   class << self
     def jasmine_app
-      return @@jasmine_app if defined?(@@jasmine_app)
-      Jasmine.load_configuration_from_yaml
-      @@jasmine_app = Jasmine::Application.app(Jasmine.config)
+      @@jasmine_app
     end
 
     def sprockets_app
-      return @@jasmine_app unless defined?(::Sprockets::Environment)
-      return @@sprockets_app if defined?(@@sprockets_app)
-      @@sprockets_app ||= ::Sprockets::Environment.new.tap { |s| s.append_path(Jasmine.config.spec_dir) }
+      @@sprockets_app
+    end
+
+    def configure(middleman_sprockets)
+      Jasmine.load_configuration_from_yaml
+      @@jasmine_app = Jasmine::Application.app(Jasmine.config)
+      @@sprockets_app = 
+        if defined?(::Sprockets::Environment)
+          sprockets = ::Sprockets::Environment.new
+          middleman_sprockets.paths.each do |path|
+            sprockets.append_path(path)
+          end
+          sprockets.append_path(Jasmine.config.spec_dir)
+          sprockets
+        else
+          @@jasmine_app
+        end
     end
   end
-  jasmine_app
-  sprockets_app
 
-  def initialize(path="")
+  def initialize(path="", js_dir="")
     @path = path
     @app  = 
       if setup_for_spec_files?
