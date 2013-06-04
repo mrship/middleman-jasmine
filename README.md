@@ -25,7 +25,7 @@ Then, if you have sprockets installed through [middleman-sprockets](https://gith
 
 Add the following code to your `config.rb` file:
 ```
-  activate: :jasmine
+  activate :jasmine
 ```
 
 Write a spec file under spec/javascripts and hit /jasmine under your Middleman app, e.g. http://localhost:4567/jasmine.
@@ -45,7 +45,7 @@ end
 
 To configure the extension, use:
 ```
-  activate: :jasmine, fixtures_dir: "spec/javascripts/fixtures", jasmine_url: "/jasmine"
+  activate :jasmine, fixtures_dir: "spec/javascripts/fixtures", jasmine_url: "/jasmine"
 ```
 
 ## Contributing
