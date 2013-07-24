@@ -1,3 +1,7 @@
+0.1.1
+===
+Rename lib/middleman/jasmine.rb to lib/middleman-jasmine.rb per the middleman extension convention.
+
 0.1.0
 ===
 
