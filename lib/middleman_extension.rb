@@ -1,1 +1,1 @@
-require 'middleman/jasmine'
+require 'middleman-jasmine'
