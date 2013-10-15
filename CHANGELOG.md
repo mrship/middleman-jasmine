@@ -1,3 +1,7 @@
+0.2.0
+===
+* Revise so fixtures are served by Rack::Directory
+
 0.1.1
 ===
 Rename lib/middleman/jasmine.rb to lib/middleman-jasmine.rb per the middleman extension convention.
