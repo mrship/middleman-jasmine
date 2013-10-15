@@ -12,7 +12,7 @@ class JasmineSprocketsProxy
 
     def configure(middleman_sprockets)
       Jasmine.load_configuration_from_yaml
-      @@jasmine_app = Jasmine::Application.app(Jasmine.config)
+      @@jasmine_app   = Jasmine::Application.app(Jasmine.config)
       @@sprockets_app = 
         if defined?(::Sprockets::Environment)
           sprockets = ::Sprockets::Environment.new
@@ -27,7 +27,7 @@ class JasmineSprocketsProxy
     end
   end
 
-  def initialize(path="", js_dir="")
+  def initialize(path="")
     @path = path
     @app  = 
       if setup_for_spec_files?
@@ -49,7 +49,7 @@ class JasmineSprocketsProxy
   end
 
   def serving_spec_via_sprockets?
-    setup_for_spec_files? && defined?(@@sprockets_app)
+    setup_for_spec_files? && defined?(::Sprockets::Environment)
   end
 end
 
