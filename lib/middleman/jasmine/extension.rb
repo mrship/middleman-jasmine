@@ -12,9 +12,11 @@ module Middleman
         yield options if block_given?
 
         app.map(options.jasmine_url) { run ::JasmineSprocketsProxy.new }
-        jasmine_asset_folders(options.fixtures_dir).each do |item|
+        jasmine_asset_folders.each do |item|
           app.map("/#{item}") { run ::JasmineSprocketsProxy.new(item) }
         end
+
+        app.map("/#{options.fixtures_dir}") { run Rack::Directory.new(options.fixtures_dir) }
 
         app.after_configuration do
           ::JasmineSprocketsProxy.configure(sprockets)
@@ -23,9 +25,9 @@ module Middleman
 
       private
 
-      def jasmine_asset_folders(fixtures_dir)
+      def jasmine_asset_folders
         [
-          "__jasmine__", "__boot__", "__spec__", fixtures_dir
+          "__jasmine__", "__boot__", "__spec__"
         ]
       end
 
