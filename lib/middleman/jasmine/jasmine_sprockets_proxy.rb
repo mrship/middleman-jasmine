@@ -10,8 +10,8 @@ class JasmineSprocketsProxy
       @@sprockets_app
     end
 
-    def configure(middleman_sprockets)
-      Jasmine.load_configuration_from_yaml
+    def configure(middleman_sprockets, config_file = nil)
+      Jasmine.load_configuration_from_yaml(config_file)
       @@jasmine_app   = Jasmine::Application.app(Jasmine.config)
       @@sprockets_app = 
         if defined?(::Sprockets::Environment)
