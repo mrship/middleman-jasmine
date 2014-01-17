@@ -45,7 +45,7 @@ end
 
 To configure the extension, use:
 ```
-  activate :jasmine, fixtures_dir: "spec/javascripts/fixtures", jasmine_url: "/jasmine"
+  activate :jasmine, fixtures_dir: "spec/javascripts/fixtures", jasmine_url: "/jasmine", config_file: "spec/config.yml"
 ```
 
 ## Contributing

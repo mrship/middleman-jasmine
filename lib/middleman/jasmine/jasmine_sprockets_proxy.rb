@@ -10,8 +10,9 @@ class JasmineSprocketsProxy
       @@sprockets_app
     end
 
-    def configure(middleman_sprockets)
-      Jasmine.load_configuration_from_yaml
+    def configure(middleman_sprockets, config_file = nil)
+      raise "Config file not found" unless valid_config_file?(config_file)
+      Jasmine.load_configuration_from_yaml(config_file)
       @@jasmine_app   = Jasmine::Application.app(Jasmine.config)
       @@sprockets_app = 
         if defined?(::Sprockets::Environment)
@@ -24,6 +25,13 @@ class JasmineSprocketsProxy
         else
           @@jasmine_app
         end
+    end
+
+    private
+
+    def valid_config_file?(config_file)
+      return true if config_file.nil?
+      File.exist?(config_file)
     end
   end
 
