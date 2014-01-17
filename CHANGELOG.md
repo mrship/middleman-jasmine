@@ -1,3 +1,7 @@
+0.3.0
+===
+* Add config_file option for specifying jasmine config file [byteio, mrship]
+
 0.2.0
 ===
 * Revise so fixtures are served by Rack::Directory
