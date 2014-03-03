@@ -45,8 +45,15 @@ end
 
 To configure the extension, use:
 ```
-  activate :jasmine, fixtures_dir: "spec/javascripts/fixtures", jasmine_url: "/jasmine", config_file: "spec/config.yml"
+  activate :jasmine do |options|
+    options.fixtures_dir = "spec/javascripts/fixtures"
+    options.jasmine_url  = "/jasmine"
+    options.config_file  = "spec/config.yml"
+    options.debug_assets = false
+  end
 ```
+
+NOTE: `debug_assets` can be used to extract any assets included in the spec files and serve them with `?body=t` to avoid sprockets compiling them every time a spec re-runs.
 
 ## Contributing
 
