@@ -10,7 +10,7 @@ class JasmineSprocketsProxy
       @@sprockets_app
     end
 
-    def configure(middleman_sprockets, config_file = nil)
+    def configure(middleman_sprockets, config_file, debug_assets)
       raise "Config file not found" unless valid_config_file?(config_file)
       Jasmine.load_configuration_from_yaml(config_file)
       @@jasmine_app   = Jasmine::Application.app(Jasmine.config)
@@ -25,6 +25,10 @@ class JasmineSprocketsProxy
         else
           @@jasmine_app
         end
+        
+      if debug_assets
+        Jasmine.config.add_path_mapper(lambda { |config| DebugAssetMapper.new(@@sprockets_app) } )
+      end
     end
 
     private
@@ -74,5 +78,20 @@ module Rack
         ]
       end      
     end
+  end
+end
+
+class DebugAssetMapper
+  attr_reader :sprockets
+  def initialize(sprockets)
+    @sprockets = sprockets
+  end
+
+  def map_spec_paths(spec_paths)
+    spec_paths.map do |path|
+      sprockets[File.basename(path)].to_a.map do | dependency |
+        "/__spec__/#{dependency.logical_path}?body=t"
+      end
+    end.flatten.uniq
   end
 end

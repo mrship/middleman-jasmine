@@ -1,3 +1,7 @@
+0.4.0
+===
+* Add debug_assets option to expand the assets into individual files. Defaults to false.
+
 0.3.0
 ===
 * Add config_file option for specifying jasmine config file [byteio, mrship]

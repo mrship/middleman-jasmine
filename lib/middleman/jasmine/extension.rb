@@ -19,7 +19,7 @@ module Middleman
         app.map("/#{options.fixtures_dir}") { run Rack::Directory.new(options.fixtures_dir) }
 
         app.after_configuration do
-          ::JasmineSprocketsProxy.configure(sprockets, options.config_file)
+          ::JasmineSprocketsProxy.configure(sprockets, options.config_file, options.debug_assets)
         end
       end
 
@@ -35,9 +35,11 @@ module Middleman
         {
           jasmine_url: "/jasmine",
           fixtures_dir: "spec/javascripts/fixtures",
-          config_file: nil
+          config_file: nil,
+          debug_assets: false
         }        
-      end      
+      end
+
     alias :included :registered
     end
 
