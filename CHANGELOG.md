@@ -1,3 +1,8 @@
+0.5.0
+===
+* Upgrade from Jasmine 1.3 to Jasmine 2.0.
+* Add Rake-task that runs the tests with PhantomJS. Use `rake jasmine:ci`
+
 0.4.0
 ===
 * Add debug_assets option to expand the assets into individual files. Defaults to false.
