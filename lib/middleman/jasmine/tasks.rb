@@ -10,7 +10,7 @@ namespace :jasmine do
   task :ci do
     config = Jasmine.config
 
-    server = Jasmine::Server.new(config.port(:ci), Jasmine::Application.app(config))
+    server = Jasmine::Server.new(config.port(:ci), Middleman.server)
     t = Thread.new do
       begin
         server.start
@@ -27,7 +27,9 @@ namespace :jasmine do
     exit_code_formatter = Jasmine::Formatters::ExitCode.new
     formatters << exit_code_formatter
 
-    url = "#{config.host}:#{config.port(:ci)}/"
+    # FIXME: hardcoded path. should use options sent to Middleman::Jasmine.registered instead
+    path = "/jasmine"
+    url = "#{config.host}:#{config.port(:ci)}#{path}"
     runner = config.runner.call(Jasmine::Formatters::Multi.new(formatters), url)
     runner.run
 
