@@ -1,7 +1,7 @@
 # Middleman::Jasmine
 
-This gem adds the Jasmine runner into a middleman app under the /jasmine path. 
-It has (optional) support for sprockets.
+This gem adds the Jasmine runner into a middleman app under the `/jasmine` path. 
+It has (optional) support for Sprockets.
 
 ## Installation
 
@@ -19,25 +19,27 @@ First run `bundle exec jasmine init` to setup Jasmine.
 
 Replace the contents in the generated `Rakefile` with:
 
-```
+```ruby
 require 'bundler/setup'
 require 'middleman'
 require 'middleman-jasmine'
 require 'middleman/jasmine/tasks'
 ```
 
-Then, if you have sprockets installed through [middleman-sprockets](https://github.com/middleman/middleman-sprockets), you can create a spec.js file in spec/javascripts to include all your specs, i.e.
+Then, if you have Sprockets installed through [middleman-sprockets](https://github.com/middleman/middleman-sprockets), you can create a `spec.js` file in `spec/javascripts/` to include all your specs, i.e.
+
 ```
 //= require application
 //= require_tree .
 ```
 
 Add the following code to your `config.rb` file:
-```
-  activate :jasmine
+
+```ruby
+activate :jasmine
 ```
 
-Write a spec file under spec/javascripts and hit /jasmine under your Middleman app, e.g. http://localhost:4567/jasmine.
+Write a spec file under `spec/javascripts/` and hit `/jasmine` under your Middleman app, e.g. `http://localhost:4567/jasmine`.
 
 You should see the results of the spec pass/fail under Jasmine.
 
@@ -50,20 +52,22 @@ rake jasmine:ci
 ## Configuration
 
 To configure the extension, use:
-```
-  activate :jasmine do |options|
-    options.fixtures_dir = "spec/javascripts/fixtures"
-    options.jasmine_url  = "/jasmine"
-    options.config_file  = "spec/config.yml"
-    options.debug_assets = false
-  end
+
+```ruby
+activate :jasmine do |options|
+  options.fixtures_dir = "spec/javascripts/fixtures"
+  options.jasmine_url  = "/jasmine"
+  options.config_file  = "spec/config.yml"
+  options.debug_assets = false
+end
 ```
 
-NOTE: `debug_assets` can be used to extract any assets included in the spec files and serve them with `?body=t` to avoid sprockets compiling them every time a spec re-runs.
+NOTE: `debug_assets` can be used to extract any assets included in the spec files and serve them with `?body=t` to avoid Sprockets compiling them every time a spec re-runs.
 
 ## Caveats
 
-If you add additional paths to sprockets with `append_path` in your `after_configuration` block then you'll most likely need to append the same paths to the Middleman::Jasmine sprockets instance. To do that use the helper `jasmine_sprockets`, i.e.:
+If you add additional paths to Sprockets with `append_path` in your `after_configuration` block then you'll most likely need to append the same paths to the `Middleman::Jasmine` Sprockets instance. To do that use the helper `jasmine_sprockets`, i.e.:
+
 ```ruby
 after_configuration do
   handlebars_path = File.expand_path('../', ::Handlebars::Source.bundled_path)
