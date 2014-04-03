@@ -17,6 +17,15 @@ And then execute:
 
 First run `bundle exec jasmine init` to setup Jasmine.
 
+Replace the contents in the generated `Rakefile` with:
+
+```
+require 'bundler/setup'
+require 'middleman'
+require 'middleman-jasmine'
+require 'middleman/jasmine/tasks'
+```
+
 Then, if you have sprockets installed through [middleman-sprockets](https://github.com/middleman/middleman-sprockets), you can create a spec.js file in spec/javascripts to include all your specs, i.e.
 ```
 //= require application
@@ -30,7 +39,13 @@ Add the following code to your `config.rb` file:
 
 Write a spec file under spec/javascripts and hit /jasmine under your Middleman app, e.g. http://localhost:4567/jasmine.
 
-You should see the results of the spec pass/fail under Jasmine. 
+You should see the results of the spec pass/fail under Jasmine.
+
+You can also run the Jasmine-tests using PhantomJS with Rake:
+
+```
+rake jasmine:ci
+```
 
 If you add additional paths to sprockets with `append_path` in your `after_configuration` block then you'll most likely need to append the same paths to the Middleman::Jasmine sprockets instance. To do that use the helper `jasmine_sprockets`, i.e.:
 ```ruby
