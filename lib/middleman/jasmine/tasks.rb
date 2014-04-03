@@ -10,7 +10,9 @@ namespace :jasmine do
   task :ci do
     config = Jasmine.config
 
-    server = Jasmine::Server.new(config.port(:ci), Middleman.server)
+    logger = Logger.new($stdout)
+    logger.level = Logger::WARN
+    server = Rack::Server.new(:app => Middleman.server, :Port => config.port(:ci), :AccessLog => [], :Logger => logger)
     t = Thread.new do
       begin
         server.start
@@ -33,7 +35,7 @@ namespace :jasmine do
     runner = config.runner.call(Jasmine::Formatters::Multi.new(formatters), url)
     runner.run
 
-    break unless exit_code_formatter.succeeded?
+    abort unless exit_code_formatter.succeeded?
   end
 
 end
