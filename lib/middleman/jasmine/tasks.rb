@@ -6,7 +6,7 @@ require 'jasmine/config'
 
 namespace :jasmine do
 
-  desc 'Run continuous integration tests'
+  desc 'Run Jasmine-tests with PhantomJS and print result. Exit with code 1 or 0.'
   task :ci do
     config = Jasmine.config
 
