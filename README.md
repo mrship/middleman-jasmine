@@ -47,16 +47,7 @@ You can also run the Jasmine-tests using PhantomJS with Rake:
 rake jasmine:ci
 ```
 
-If you add additional paths to sprockets with `append_path` in your `after_configuration` block then you'll most likely need to append the same paths to the Middleman::Jasmine sprockets instance. To do that use the helper `jasmine_sprockets`, i.e.:
-```ruby
-after_configuration do
-  handlebars_path = File.expand_path('../', ::Handlebars::Source.bundled_path)
-  sprockets.append_path(handlebars_path)
-
-  # add Handlebars to Jasmine too
-  jasmine_sprockets.append_path(handlebars_path)
-end
-```
+## Configuration
 
 To configure the extension, use:
 ```
@@ -69,6 +60,19 @@ To configure the extension, use:
 ```
 
 NOTE: `debug_assets` can be used to extract any assets included in the spec files and serve them with `?body=t` to avoid sprockets compiling them every time a spec re-runs.
+
+## Caveats
+
+If you add additional paths to sprockets with `append_path` in your `after_configuration` block then you'll most likely need to append the same paths to the Middleman::Jasmine sprockets instance. To do that use the helper `jasmine_sprockets`, i.e.:
+```ruby
+after_configuration do
+  handlebars_path = File.expand_path('../', ::Handlebars::Source.bundled_path)
+  sprockets.append_path(handlebars_path)
+
+  # add Handlebars to Jasmine too
+  jasmine_sprockets.append_path(handlebars_path)
+end
+```
 
 ## Contributing
 
