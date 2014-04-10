@@ -20,8 +20,6 @@ First run `bundle exec jasmine init` to setup Jasmine.
 Replace the contents in the generated `Rakefile` with:
 
 ```ruby
-require 'bundler/setup'
-require 'middleman'
 require 'middleman-jasmine'
 require 'middleman/jasmine/tasks'
 ```
