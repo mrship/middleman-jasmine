@@ -1,9 +1,6 @@
 require "middleman/jasmine/version"
-require "middleman/jasmine/extension"
 
 ::Middleman::Extensions.register(:jasmine) do
-  ::Middleman::Jasmine
+  require "middleman/jasmine/extension"
+  ::Middleman::JasmineExtension
 end
-
-
-
