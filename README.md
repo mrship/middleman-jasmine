@@ -1,6 +1,6 @@
 # Middleman::Jasmine
 
-This gem adds the Jasmine runner into a middleman app under the `/jasmine` path. 
+This gem adds the Jasmine runner into a middleman app under the `/jasmine` path.
 It has (optional) support for Sprockets.
 
 ## Installation
@@ -16,13 +16,6 @@ And then execute:
 ## Usage
 
 First run `bundle exec jasmine init` to setup Jasmine.
-
-Replace the contents in the generated `Rakefile` with:
-
-```ruby
-require 'middleman-jasmine'
-require 'middleman/jasmine/tasks'
-```
 
 Then, if you have Sprockets installed through [middleman-sprockets](https://github.com/middleman/middleman-sprockets), you can create a `spec.js` file in `spec/javascripts/` to include all your specs, i.e.
 
@@ -41,10 +34,22 @@ Write a spec file under `spec/javascripts/` and hit `/jasmine` under your Middle
 
 You should see the results of the spec pass/fail under Jasmine.
 
+
+## Rake
 You can also run the Jasmine-tests using PhantomJS with Rake:
 
+Add the following to the `Rakefile` generated from `bundle exec jasmine init`:
+
+```ruby
+require 'middleman'
+require 'middleman-jasmine'
+require 'middleman/jasmine/tasks'
 ```
-rake jasmine:ci
+
+Then use:
+
+```
+rake middleman_jasmine:ci
 ```
 
 ## Configuration
