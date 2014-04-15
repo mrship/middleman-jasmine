@@ -3,6 +3,8 @@
 This gem adds the Jasmine runner into a middleman app under the `/jasmine` path.
 It has (optional) support for Sprockets.
 
+It uses Jasmine 2.0. For Jasmine 1.3 support use the [jasmine_1_3](https://github.com/mrship/middleman-jasmine/tree/jasmine_1_3) branch.
+
 ## Installation
 
 Add this line to your application's Gemfile:
