@@ -2,51 +2,42 @@ require 'middleman-core'
 require 'middleman/jasmine/jasmine_sprockets_proxy'
 
 module Middleman
-  module Jasmine
-    class << self
-      def registered(app, options_hash={}, &block)
-        app.send :include, InstanceMethods
+  class JasmineExtension < Extension
+    option :jasmine_url,  "/jasmine"
+    option :fixtures_dir, "spec/javascripts/fixtures"
+    option :config_file,  nil
+    option :debug_assets, false
 
-        options = OpenStruct.new(default_options.merge(options_hash))
+    attr_reader :jasmine_url
+    def initialize(app, options_hash={}, &block)
+      super
+      _o = options
 
-        yield options if block_given?
-
-        app.map(options.jasmine_url) { run ::JasmineSprocketsProxy.new }
-        jasmine_asset_folders.each do |item|
-          app.map("/#{item}") { run ::JasmineSprocketsProxy.new(item) }
-        end
-
-        app.map("/#{options.fixtures_dir}") { run Rack::Directory.new(options.fixtures_dir) }
-
-        app.after_configuration do
-          ::JasmineSprocketsProxy.configure(sprockets, options.config_file, options.debug_assets)
-        end
+      app.map(_o.jasmine_url) { run ::JasmineSprocketsProxy.new }
+      jasmine_asset_folders.each do |item|
+        app.map("/#{item}") { run ::JasmineSprocketsProxy.new(item) }
       end
 
-      private
+      app.map("/#{_o.fixtures_dir}") { run Rack::Directory.new(_o.fixtures_dir) }
 
-      def jasmine_asset_folders
-        [
-          "__jasmine__", "__boot__", "__spec__"
-        ]
+      app.after_configuration do
+        ::JasmineSprocketsProxy.configure(sprockets, _o.config_file, _o.debug_assets)
       end
-
-      def default_options
-        {
-          jasmine_url: "/jasmine",
-          fixtures_dir: "spec/javascripts/fixtures",
-          config_file: nil,
-          debug_assets: false
-        }        
-      end
-
-    alias :included :registered
+      @jasmine_url = _o.jasmine_url
     end
 
-    module InstanceMethods
+    helpers do
       def jasmine_sprockets
         ::JasmineSprocketsProxy.sprockets_app
       end
+    end
+
+    private
+
+    def jasmine_asset_folders
+      [
+        "__jasmine__", "__boot__", "__spec__"
+      ]
     end
   end
 end
