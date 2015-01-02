@@ -35,6 +35,10 @@ namespace :middleman_jasmine do
     path   = middleman_extensions[:jasmine].jasmine_url
     url    = "#{config.host}:#{config.port(:ci)}#{path}"
     runner = config.runner.call(Jasmine::Formatters::Multi.new(formatters), url)
+    if runner.respond_to?(:boot_js)
+      config.runner_boot_dir = File.dirname(runner.boot_js)
+      config.runner_boot_files = lambda { [runner.boot_js] }
+    end
     runner.run
 
     abort unless exit_code_formatter.succeeded?

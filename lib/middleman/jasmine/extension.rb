@@ -36,7 +36,7 @@ module Middleman
 
     def jasmine_asset_folders
       [
-        "__jasmine__", "__boot__", "__spec__"
+        "__jasmine__", "__boot__", "__spec__", "__runner_boot__"
       ]
     end
   end
