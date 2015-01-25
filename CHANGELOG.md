@@ -1,3 +1,7 @@
+0.5.1
+===
+* Fix `rake middleman_jasmine:ci` by adding runner_boot dir. [clemenshelm]
+
 0.5.0
 ===
 * Upgrade from Jasmine 1.3 to Jasmine 2.0. [johanlunds]
