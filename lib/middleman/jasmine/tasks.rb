@@ -1,4 +1,5 @@
 require 'middleman/rack'
+require 'logger'
 
 require 'json'
 require 'jasmine'
@@ -11,7 +12,8 @@ namespace :middleman_jasmine do
     config       = Jasmine.config
     logger       = Logger.new($stdout)
     logger.level = Logger::WARN
-    server       = Rack::Server.new(:app => Middleman.server, :Port => config.port(:ci), :AccessLog => [], :Logger => logger)
+    middleman_app = ::Middleman::Application.server
+    server       = Rack::Server.new(:app => middleman_app, :Port => config.port(:ci), :AccessLog => [], :Logger => logger)
 
     t = Thread.new do
       begin
@@ -29,7 +31,7 @@ namespace :middleman_jasmine do
     exit_code_formatter = Jasmine::Formatters::ExitCode.new
     formatters << exit_code_formatter
 
-    middleman_extensions = ::Middleman::Application.server.inst.extensions
+    middleman_extensions = middleman_app.inst.extensions
     throw "Middleman Jasmine extension not activated" unless middleman_extensions.has_key?(:jasmine)
 
     path   = middleman_extensions[:jasmine].jasmine_url
